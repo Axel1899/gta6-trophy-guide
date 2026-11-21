@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Trophy Hunter — GTA VI PS5 Trophy Guide &amp; Tracker</title>
+<meta name="description" content="An offline trophy guide and checklist for Grand Theft Auto VI on PlayStation 5: every trophy, a roadmap to the platinum, spoiler controls and progress that stays on your device.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sky" aria-hidden="true">
+  <div class="sky-sun"></div>
+  <div class="sky-band sky-band-a"></div>
+  <div class="sky-band sky-band-b"></div>
+  <div class="sky-band sky-band-c"></div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">LH</div>
+      <div class="brand-text">
+        <p class="brand-kicker">Grand Theft Auto VI &middot; PlayStation 5</p>
+        <h1>Leonida Trophy Hunter</h1>
+        <p class="brand-sub" id="listLine">Trophy guide &amp; tracker</p>
+      </div>
+    </div>
+
+    <section class="progress-card" aria-label="Your progress">
+      <div class="progress-head">
+        <strong id="progressCount">0 / 0</strong>
+        <span id="progressPct">0% to the platinum</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Platinum progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarWrap">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <ul class="grade-tally" id="gradeTally">
+        <li><span class="dot dot-platinum"></span>Platinum <b id="tallyPlatinum">0/0</b></li>
+        <li><span class="dot dot-gold"></span>Gold <b id="tallyGold">0/0</b></li>
+        <li><span class="dot dot-silver"></span>Silver <b id="tallySilver">0/0</b></li>
+        <li><span class="dot dot-bronze"></span>Bronze <b id="tallyBronze">0/0</b></li>
+      </ul>
+    </section>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="controls" aria-label="Guide controls">
+    <div class="view-switch" role="tablist" aria-label="View">
+      <button type="button" class="view-btn is-active" id="viewChecklistBtn" role="tab" aria-selected="true">Checklist</button>
+      <button type="button" class="view-btn" id="viewRoadmapBtn" role="tab" aria-selected="false">Roadmap</button>
+    </div>
+
+    <div class="control-row">
+      <label class="search-box">
+        <span class="visually-hidden">Search trophies</span>
+        <input type="search" id="searchInput" placeholder="Search trophies by name or description&hellip;" autocomplete="off">
+      </label>
+      <label class="grade-select">
+        <span>Grade</span>
+        <select id="gradeFilter">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label class="spoiler-toggle">
+        <input type="checkbox" id="spoilerToggle">
+        <span>Hide spoilers</span>
+      </label>
+      <label class="spoiler-toggle">
+        <input type="checkbox" id="hideEarnedToggle">
+        <span>Hide earned</span>
+      </label>
+    </div>
+
+    <div class="chips" id="kindChips" role="group" aria-label="Filter by type">
+      <button type="button" class="chip is-active" data-filter="all">All</button>
+      <button type="button" class="chip" data-filter="story">Story</button>
+      <button type="button" class="chip chip-warn" data-filter="missable">Missable</button>
+      <button type="button" class="chip" data-filter="collectibles">Collectibles</button>
+      <button type="button" class="chip" data-filter="activities">Activities</button>
+      <button type="button" class="chip" data-filter="online">Online</button>
+      <button type="button" class="chip" data-filter="misc">Misc</button>
+    </div>
+
+    <div class="control-row control-row-actions">
+      <p class="result-line" id="resultLine" aria-live="polite"></p>
+      <div class="actions">
+        <button type="button" class="btn btn-ghost" id="exportBtn">Export progress</button>
+        <label class="btn btn-ghost file-btn" for="importFile">Import progress</label>
+        <input type="file" id="importFile" accept="application/json,.json" class="visually-hidden">
+        <button type="button" class="btn btn-ghost btn-danger" id="resetBtn">Reset</button>
+      </div>
+    </div>
+    <p class="notice" id="notice" role="status" aria-live="polite"></p>
+  </section>
+
+  <section id="checklistView" aria-label="Trophy checklist">
+    <div class="trophy-list" id="trophyList"></div>
+    <p class="empty" id="emptyState" hidden>No trophies match those filters. Loosen the search or pick a different type.</p>
+  </section>
+
+  <section id="roadmapView" aria-label="Roadmap to the platinum" hidden>
+    <div class="roadmap-intro">
+      <h2>Roadmap to the platinum</h2>
+      <p>Work the stages in order. Story first, missables flagged before you pass the point of no return, then the long collectible and activity grinds, and online whenever you have a crew. Ticking a trophy here ticks it in the checklist too.</p>
+    </div>
+    <div id="roadmapStages"></div>
+    <p class="empty" id="roadmapEmpty" hidden>The roadmap is still being written. The checklist above has everything in the meantime.</p>
+  </section>
+
+  <aside class="detail" id="detailPanel" aria-label="Trophy detail" hidden>
+    <button type="button" class="detail-close" id="detailClose" aria-label="Close detail">&times;</button>
+    <div id="detailBody"></div>
+  </aside>
+
+  <footer class="foot">
+    <h2>About this guide</h2>
+    <p id="aboutText">Leonida Trophy Hunter is a fan-made, offline guide. It runs entirely in your browser: your checklist is stored only on this device, nothing is uploaded, and the guide makes no network requests once loaded. Trophy names and descriptions are the official PlayStation trophy list; the how-to notes are written for this guide.</p>
+    <p class="foot-sources" id="footSources"></p>
+    <p class="foot-fine">Unofficial fan project. Not affiliated with Rockstar Games or Sony Interactive Entertainment.</p>
+  </footer>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
